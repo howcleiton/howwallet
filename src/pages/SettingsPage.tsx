@@ -15,7 +15,7 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { useTheme } from '@/hooks/useTheme'; // ✅ novo hook aqui
+import { useTheme } from '@/hooks/useTheme';
 import {
   Dialog,
   DialogContent,
@@ -41,7 +41,7 @@ const SettingsPage = () => {
   const { currentWallet, changeNetwork } = useWalletStore();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { theme, setTheme } = useTheme(); // ✅ uso do tema real aqui
+  const { theme, setTheme } = useTheme();
 
   if (!currentWallet) return null;
 
@@ -77,7 +77,7 @@ const SettingsPage = () => {
       <SectionHeader title="Settings" />
       
       <div className="p-4">
-        <h2 className="text-lg font-medium text-white mb-4">Wallet Settings</h2>
+        <h2 className="text-lg font-medium text-foreground mb-4">Wallet Settings</h2>
         
         <SettingsCard
           icon={<Network className="w-5 h-5 text-blue-400" />}
@@ -86,7 +86,7 @@ const SettingsPage = () => {
           onClick={handleNetworkChange}
           index={0}
           rightContent={
-            <div className="px-2 py-1 rounded-full bg-[#2a2a3a] text-xs text-violet-300 font-medium">
+            <div className="px-2 py-1 rounded-full bg-muted text-xs text-violet-300 font-medium">
               {currentWallet.network === 'mainnet' ? 'Mainnet' : 'Devnet'}
             </div>
           }
@@ -103,21 +103,21 @@ const SettingsPage = () => {
               />
             </div>
           </AlertDialogTrigger>
-          <AlertDialogContent className="bg-[#14141f] border-[#2d2d3d]">
+          <AlertDialogContent className="bg-card border-border">
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-white">Security Warning</AlertDialogTitle>
-              <AlertDialogDescription className="text-gray-400">
+              <AlertDialogTitle className="text-foreground">Security Warning</AlertDialogTitle>
+              <AlertDialogDescription className="text-muted-foreground">
                 Your private key provides full control of your wallet. Never share it with anyone!
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-900/20 border border-yellow-900/30 mb-4">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-900/30 mb-4">
               <AlertTriangle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <p className="text-sm text-yellow-300">
+              <p className="text-sm text-yellow-500">
                 Anyone with your private key can steal your funds!
               </p>
             </div>
             <AlertDialogFooter>
-              <AlertDialogCancel className="bg-[#252536] hover:bg-[#2d2d46] text-white border-none">
+              <AlertDialogCancel className="bg-muted hover:bg-muted/70 text-foreground border-none">
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction 
@@ -146,17 +146,17 @@ const SettingsPage = () => {
               />
             </div>
           </DialogTrigger>
-          <DialogContent className="bg-[#14141f] border-[#2d2d3d]">
+          <DialogContent className="bg-card border-border">
             <DialogHeader>
-              <DialogTitle className="text-white">Recovery Phrase</DialogTitle>
-              <DialogDescription className="text-gray-400">
+              <DialogTitle className="text-foreground">Recovery Phrase</DialogTitle>
+              <DialogDescription className="text-muted-foreground">
                 These 12 words are the keys to your wallet. Keep them in a safe place!
               </DialogDescription>
             </DialogHeader>
             
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-900/20 border border-yellow-900/30 mb-4">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-900/30 mb-4">
               <AlertTriangle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              <p className="text-sm text-yellow-300">
+              <p className="text-sm text-yellow-500">
                 Never share your recovery phrase with anyone!
               </p>
             </div>
@@ -165,10 +165,10 @@ const SettingsPage = () => {
               {currentWallet.seedPhrase?.map((word, index) => (
                 <div 
                   key={index} 
-                  className="p-2 bg-[#1a1a28] border border-[#2d2d3d] rounded-lg text-center"
+                  className="p-2 bg-muted border border-border rounded-lg text-center"
                 >
-                  <span className="text-xs text-gray-500 mr-1">{index + 1}.</span>
-                  <span className="text-white">{word}</span>
+                  <span className="text-xs text-muted-foreground mr-1">{index + 1}.</span>
+                  <span className="text-foreground">{word}</span>
                 </div>
               ))}
             </div>
@@ -206,7 +206,7 @@ const SettingsPage = () => {
           index={4}
         />
 
-        <h2 className="text-lg font-medium text-white mt-6 mb-4">App Settings</h2>
+        <h2 className="text-lg font-medium text-foreground mt-6 mb-4">App Settings</h2>
         
         <SettingsCard
           icon={theme === 'dark' ? <Moon className="w-5 h-5 text-indigo-400" /> : <Sun className="w-5 h-5 text-yellow-400" />}
@@ -221,7 +221,7 @@ const SettingsPage = () => {
           }
         />
         
-        <div className="mt-8 text-center text-xs text-gray-500">
+        <div className="mt-8 text-center text-xs text-muted-foreground">
           <p>How Wallet v1.0.0</p>
           <p className="mt-1">Wallet Address: {formatAddress(currentWallet.address)}</p>
         </div>

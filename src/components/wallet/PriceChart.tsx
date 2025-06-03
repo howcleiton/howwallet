@@ -7,8 +7,9 @@ const RANGE_OPTIONS = [
   { label: "1D", value: "1" },
   { label: "1S", value: "7" },
   { label: "1M", value: "30" },
-  { label: "TUDO", value: "max" },
+  { label: "1A", value: "365" }, // usando 1 ano ao invés de "max"
 ];
+
 
 interface PriceChartProps {
   tokenId: string; // ex: "solana"

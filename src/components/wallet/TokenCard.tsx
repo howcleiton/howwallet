@@ -13,30 +13,36 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
     <Link to={`/token/${token.id}`}>
       <CardContainer 
         delay={index}
-        className="flex items-center justify-between mb-3 p-4 hover:bg-[#1a1a28] transition-colors"
+        className="flex items-center justify-between mb-3 p-4 
+                   bg-white dark:bg-zinc-800
+                   hover:bg-zinc-100 dark:hover:bg-zinc-700 
+                   transition-colors duration-300 rounded-xl shadow-md"
       >
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-[#1e1e2e] p-1 mr-3 flex-shrink-0 overflow-hidden">
+          <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 p-1 mr-3 flex-shrink-0 overflow-hidden">
             <img 
               src={token.iconUrl} 
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                // Oculta a imagem quebrada se falhar
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           </div>
           
           <div>
-            <h3 className="font-medium text-white">{token.name}</h3>
-            <p className="text-sm text-gray-400">{token.symbol}</p>
+            <h3 className="font-medium text-zinc-900 dark:text-white">{token.name}</h3>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">{token.symbol}</p>
           </div>
         </div>
         
         <div className="text-right">
-          <p className="font-medium text-white">{formatAmount(token.balance)} {token.symbol}</p>
-          <p className="text-sm text-gray-400">{formatUSD(token.usdValue)}</p>
+          <p className="font-medium text-zinc-900 dark:text-white">
+            {formatAmount(token.balance)} {token.symbol}
+          </p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            {formatUSD(token.usdValue)}
+          </p>
         </div>
       </CardContainer>
     </Link>

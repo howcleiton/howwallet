@@ -26,7 +26,8 @@ const mockTokens: Token[] = [
     balance: 3.14159,
     usdValue: 345.57,
     priceUsd: 110.0,
-    priceHistory: [102, 104, 99, 105, 110, 108, 112, 110, 114, 116, 110]
+    priceHistory: [102, 104, 99, 105, 110, 108, 112, 110, 114, 116, 110],
+    mintAddress: 'So11111111111111111111111111111111111111112'
   },
   {
     id: '2',
@@ -36,7 +37,8 @@ const mockTokens: Token[] = [
     balance: 250.75,
     usdValue: 250.75,
     priceUsd: 1.0,
-    priceHistory: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    priceHistory: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    mintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
   },
   {
     id: '3',
@@ -46,7 +48,8 @@ const mockTokens: Token[] = [
     balance: 153.25,
     usdValue: 24.52,
     priceUsd: 0.16,
-    priceHistory: [0.15, 0.14, 0.16, 0.17, 0.16, 0.17, 0.18, 0.17, 0.16, 0.16, 0.16]
+    priceHistory: [0.15, 0.14, 0.16, 0.17, 0.16, 0.17, 0.18, 0.17, 0.16, 0.16, 0.16],
+    mintAddress: 'SRMuA7vZHv3KzazctX89YTz8RBYn4fN7w9Pfef1bXQ3'
   },
   {
     id: '4',
@@ -56,7 +59,8 @@ const mockTokens: Token[] = [
     balance: 42.5,
     usdValue: 17.0,
     priceUsd: 0.4,
-    priceHistory: [0.38, 0.39, 0.41, 0.4, 0.42, 0.41, 0.4, 0.39, 0.4, 0.4, 0.4]
+    priceHistory: [0.38, 0.39, 0.41, 0.4, 0.42, 0.41, 0.4, 0.39, 0.4, 0.4, 0.4],
+    mintAddress: '4k3Dyjzvzp8eGc5uxZ9qLGbyv8mfs83LB7TFFB5jvuGH'
   }
 ];
 

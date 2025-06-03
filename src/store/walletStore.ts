@@ -17,7 +17,7 @@ interface WalletState {
 }
 
 // Mock token data
-cconst mockTokens: Token[] = [
+const mockTokens: Token[] = [
   {
     id: '1',
     name: 'Solana',

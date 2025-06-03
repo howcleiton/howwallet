@@ -30,7 +30,8 @@ const CardContainer = ({
       whileTap={{ scale: onClick ? 0.98 : 1 }}
       onClick={onClick}
       className={cn(
-        'bg-[#14141f] border border-[#2d2d3d]/50 rounded-2xl p-4 shadow-lg',
+        // Adapta o visual ao tema
+        'bg-white dark:bg-[#14141f] border border-gray-200 dark:border-[#2d2d3d]/50 rounded-2xl p-4 shadow-lg',
         onClick && 'cursor-pointer',
         className
       )}

@@ -65,16 +65,26 @@ export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// ✅ Agora usando sua Netlify Function para evitar CORS
+// ✅ Função final segura para CoinGecko (com tratamento de erro completo)
 export async function fetchChartPrices(tokenId: string, days: string): Promise<number[][]> {
-  const response = await fetch(`/.netlify/functions/coingecko?tokenId=${tokenId}&days=${days}`);
-  const data = await response.json();
+  try {
+    const response = await fetch(`/.netlify/functions/coingecko?tokenId=${tokenId}&days=${days}`);
+    const data = await response.json();
 
-  if (!data?.prices || !Array.isArray(data.prices)) {
-    console.error('❌ Erro: resposta inválida da função coingecko', data);
+    // CoinGecko pode retornar "status" com erro
+    if (data?.status && (data.status.error_code || data.status.error)) {
+      console.error('❌ CoinGecko respondeu com erro:', data.status);
+      return [];
+    }
+
+    if (!data?.prices || !Array.isArray(data.prices)) {
+      console.warn('⚠️ Resposta inesperada da CoinGecko:', data);
+      return [];
+    }
+
+    return data.prices;
+  } catch (error) {
+    console.error('❌ Erro na função coingecko:', error);
     return [];
   }
-
-  return data.prices;
 }
-

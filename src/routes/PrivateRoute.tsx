@@ -11,12 +11,10 @@ export default function PrivateRoute() {
     location.pathname.startsWith(path)
   );
 
-  // Aguarda Zustand carregar os dados do localStorage
   if (!hasHydrated) {
-    return null; // ou um <LoadingScreen /> se quiser
+    return null; // Evita renderização antes do Zustand carregar
   }
 
-  // Redireciona se ainda não tem carteira e não está em rota permitida
   if (!currentWallet && !isAllowed) {
     return <Navigate to="/create-wallet" replace />;
   }

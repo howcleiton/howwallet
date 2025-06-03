@@ -216,15 +216,18 @@ export const useWalletStore = create<WalletState>()(
         transactions: state.transactions,
       }),
       onRehydrateStorage: () => (state) => {
-  if (!state) return;
+        if (!state) return;
 
-  state.setHasHydrated?.();
+        state.setHasHydrated?.();
 
-  if (state.currentWallet) {
-    state.currentWallet.tokens = state.currentWallet.tokens.map(token => ({
-      ...token,
-      priceUsd: 0,
-      usdValue: 0,
-    }));
-  }
-}
+        if (state.currentWallet) {
+          state.currentWallet.tokens = state.currentWallet.tokens.map(token => ({
+            ...token,
+            priceUsd: 0,
+            usdValue: 0,
+          }));
+        }
+      }
+    }
+  )
+);

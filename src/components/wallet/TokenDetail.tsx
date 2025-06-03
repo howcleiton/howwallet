@@ -4,6 +4,7 @@ import PriceChart from './PriceChart';
 import CardContainer from '@/components/ui/card-container';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTokenPrice } from '@/hooks/useTokenPrice'; // ⬅️ Novo import
 
 interface TokenDetailProps {
   token: Token;
@@ -15,8 +16,9 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
   const priceChange = ((lastPrice - firstPrice) / firstPrice) * 100;
   const isPriceUp = priceChange >= 0;
 
-  // URL dinâmica do logo (Solana)
   const iconUrl = `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
+
+  const realPrice = useTokenPrice(token.coingeckoId || 'solana'); // ⬅️ Usa preço da API
 
   return (
     <div className="p-4">
@@ -39,7 +41,9 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
         </div>
 
         <div className="mb-3">
-          <h3 className="text-3xl font-bold text-zinc-900 dark:text-white">{formatUSD(token.priceUsd)}</h3>
+          <h3 className="text-3xl font-bold text-zinc-900 dark:text-white">
+            {realPrice ? formatUSD(realPrice) : '...'}
+          </h3>
           <div className="flex items-center mt-1">
             <div className={`flex items-center ${isPriceUp ? 'text-green-500' : 'text-red-500'}`}>
               {isPriceUp ? (
@@ -71,7 +75,7 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
             <div className="text-right">
               <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-1">Value</p>
               <p className="text-xl font-semibold">
-                {formatUSD(token.usdValue)}
+                {realPrice ? formatUSD(realPrice * token.balance) : '...'}
               </p>
             </div>
           </div>

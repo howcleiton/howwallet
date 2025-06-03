@@ -27,7 +27,8 @@ const mockTokens: Token[] = [
     usdValue: 345.57,
     priceUsd: 110.0,
     priceHistory: [102, 104, 99, 105, 110, 108, 112, 110, 114, 116, 110],
-    mintAddress: 'So11111111111111111111111111111111111111112'
+    mintAddress: 'So11111111111111111111111111111111111111112',
+    coingeckoId: 'solana' // ✅ adicionado
   },
   {
     id: '2',
@@ -38,7 +39,8 @@ const mockTokens: Token[] = [
     usdValue: 250.75,
     priceUsd: 1.0,
     priceHistory: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    mintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'
+    mintAddress: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
+    coingeckoId: 'usd-coin' // ✅ adicionado
   },
   {
     id: '3',
@@ -49,7 +51,8 @@ const mockTokens: Token[] = [
     usdValue: 24.52,
     priceUsd: 0.16,
     priceHistory: [0.15, 0.14, 0.16, 0.17, 0.16, 0.17, 0.18, 0.17, 0.16, 0.16, 0.16],
-    mintAddress: 'SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt'
+    mintAddress: 'SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt',
+    coingeckoId: 'serum' // ✅ adicionado
   },
   {
     id: '4',
@@ -60,9 +63,11 @@ const mockTokens: Token[] = [
     usdValue: 17.0,
     priceUsd: 0.4,
     priceHistory: [0.38, 0.39, 0.41, 0.4, 0.42, 0.41, 0.4, 0.39, 0.4, 0.4, 0.4],
-    mintAddress: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R'
+    mintAddress: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R',
+    coingeckoId: 'raydium' // ✅ adicionado
   }
 ];
+
 
 
 // Mock transaction data

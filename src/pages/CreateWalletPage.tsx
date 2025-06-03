@@ -6,7 +6,6 @@ import SectionHeader from '@/components/ui/section-header';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import CardContainer from '@/components/ui/card-container';
-import { formatAddress } from '@/lib/utils';
 import { CopyIcon, CheckIcon, AlertTriangle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/hooks/use-toast';

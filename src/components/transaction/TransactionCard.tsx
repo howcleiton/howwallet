@@ -1,6 +1,6 @@
 import { Transaction } from '@/types';
 import { formatAmount, formatAddress, formatDate, formatTime } from '@/lib/utils';
-import { ArrowUpRight, ArrowDownLeft, Repeat, Coins, AlertCircle } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, Repeat, Coins } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CardContainer from '@/components/ui/card-container';
 

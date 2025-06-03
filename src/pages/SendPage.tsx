@@ -58,7 +58,7 @@ const SendPage = () => {
     }
 
     if (parseFloat(amount) > maxAmount) {
-      setValidationError(`Insufficient balance. Max: ${maxAmount} ${selectedToken}`);
+      setValidationError(`Insufficient balance. Max: ${formatAmount(maxAmount)} ${selectedToken}`);
       return false;
     }
 
@@ -101,19 +101,22 @@ const SendPage = () => {
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#14141f] border border-[#2d2d3d]/50 rounded-2xl p-4 mb-6"
+          className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 
+                     rounded-2xl p-4 mb-6 transition-colors"
         >
           <div className="mb-4">
-            <label className="block text-sm text-gray-400 mb-2">Select Token</label>
+            <label className="block text-sm text-zinc-700 dark:text-zinc-300 mb-2">
+              Select Token
+            </label>
             <Select
               value={selectedToken}
               onValueChange={setSelectedToken}
               disabled={isSubmitting}
             >
-              <SelectTrigger className="w-full bg-[#1a1a28] border-[#2d2d3d]">
+              <SelectTrigger className="w-full" >
                 <SelectValue placeholder="Select a token" />
               </SelectTrigger>
-              <SelectContent className="bg-[#1a1a28] border-[#2d2d3d]">
+              <SelectContent>
                 {currentWallet.tokens.map(token => (
                   <SelectItem key={token.id} value={token.symbol}>
                     <div className="flex items-center">
@@ -126,7 +129,7 @@ const SendPage = () => {
                         }}
                       />
                       <span>{token.symbol}</span>
-                      <span className="ml-2 text-gray-400">
+                      <span className="ml-2 text-zinc-500 dark:text-zinc-400">
                         ({formatAmount(token.balance)})
                       </span>
                     </div>
@@ -137,24 +140,26 @@ const SendPage = () => {
           </div>
           
           <div className="mb-4">
-            <label className="block text-sm text-gray-400 mb-2">Recipient Address</label>
+            <label className="block text-sm text-zinc-700 dark:text-zinc-300 mb-2">
+              Recipient Address
+            </label>
             <Input
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
               placeholder="Enter wallet address"
-              className="bg-[#1a1a28] border-[#2d2d3d] text-white"
+              className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white"
               disabled={isSubmitting}
             />
           </div>
           
           <div className="mb-2">
             <div className="flex justify-between items-center mb-2">
-              <label className="text-sm text-gray-400">Amount</label>
+              <label className="text-sm text-zinc-700 dark:text-zinc-300">Amount</label>
               {token && (
                 <button
                   type="button"
                   onClick={() => setAmount(maxAmount.toString())}
-                  className="text-xs text-violet-400 hover:text-violet-300"
+                  className="text-xs text-violet-500 hover:text-violet-400"
                   disabled={isSubmitting}
                 >
                   Max: {formatAmount(maxAmount)} {selectedToken}
@@ -167,11 +172,11 @@ const SendPage = () => {
               placeholder="0.00"
               type="text"
               inputMode="decimal"
-              className="bg-[#1a1a28] border-[#2d2d3d] text-white text-xl"
+              className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white text-xl"
               disabled={isSubmitting}
             />
             {token && (
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
                 ≈ {formatUSD(usdValue)}
               </p>
             )}
@@ -179,7 +184,7 @@ const SendPage = () => {
         </motion.div>
         
         {validationError && (
-          <div className="mb-4 text-sm text-red-400 p-3 rounded-lg bg-red-900/20 border border-red-900/30">
+          <div className="mb-4 text-sm text-red-400 p-3 rounded-lg bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-900/30">
             {validationError}
           </div>
         )}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWalletStore } from '@/store/walletStore';
 import MobileLayout from '@/components/layout/MobileLayout';
@@ -16,6 +15,7 @@ import {
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useTheme } from '@/hooks/useTheme'; // ✅ novo hook aqui
 import {
   Dialog,
   DialogContent,
@@ -39,9 +39,9 @@ import { formatAddress } from '@/lib/utils';
 
 const SettingsPage = () => {
   const { currentWallet, changeNetwork } = useWalletStore();
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme(); // ✅ uso do tema real aqui
 
   if (!currentWallet) return null;
 
@@ -56,11 +56,11 @@ const SettingsPage = () => {
   };
 
   const handleThemeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    // In a real app, we would implement theme switching here
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
     toast({
-      title: `${!isDarkMode ? 'Dark' : 'Light'} Mode Enabled`,
-      description: `Theme switched to ${!isDarkMode ? 'dark' : 'light'} mode`,
+      title: `${newTheme === 'dark' ? 'Dark' : 'Light'} Mode Enabled`,
+      description: `Theme switched to ${newTheme} mode`,
     });
   };
 
@@ -123,7 +123,6 @@ const SettingsPage = () => {
               <AlertDialogAction 
                 className="bg-violet-600 hover:bg-violet-700 text-white"
                 onClick={() => {
-                  // Simulate private key display
                   toast({
                     title: "Private Key Displayed",
                     description: "Your private key was displayed securely",
@@ -210,13 +209,13 @@ const SettingsPage = () => {
         <h2 className="text-lg font-medium text-white mt-6 mb-4">App Settings</h2>
         
         <SettingsCard
-          icon={isDarkMode ? <Moon className="w-5 h-5 text-indigo-400" /> : <Sun className="w-5 h-5 text-yellow-400" />}
+          icon={theme === 'dark' ? <Moon className="w-5 h-5 text-indigo-400" /> : <Sun className="w-5 h-5 text-yellow-400" />}
           title="Dark Mode"
-          description={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+          description={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}
           index={5}
           rightContent={
             <Switch
-              checked={isDarkMode}
+              checked={theme === 'dark'}
               onCheckedChange={handleThemeToggle}
             />
           }

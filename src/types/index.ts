@@ -9,6 +9,7 @@ export interface Token {
   usdValue: number;
   priceUsd: number;
   priceHistory: number[];
+  mintAddress: string; // ✅ Adicionado aqui
 }
 
 export interface Wallet {

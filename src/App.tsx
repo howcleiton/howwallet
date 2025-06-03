@@ -10,10 +10,25 @@ import CreateWalletPage from '@/pages/CreateWalletPage';
 import ImportWalletPage from '@/pages/ImportWalletPage';
 import { Toaster } from '@/components/ui/sonner';
 import PrivateRoute from '@/routes/PrivateRoute';
+import { useEffect } from 'react';
+import { useThemeStore } from '@/store/themeStore';
+
+function ThemeEffect() {
+  const { theme } = useThemeStore();
+
+  useEffect(() => {
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(theme);
+  }, [theme]);
+
+  return null;
+}
 
 function App() {
   return (
     <Router>
+      <ThemeEffect />
+
       <Routes>
         {/* Redirecionamento da raiz para /wallet */}
         <Route path="/" element={<Navigate to="/wallet" replace />} />
@@ -40,4 +55,3 @@ function App() {
 }
 
 export default App;
-

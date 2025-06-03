@@ -7,12 +7,11 @@ const RANGE_OPTIONS = [
   { label: "1D", value: "1" },
   { label: "1S", value: "7" },
   { label: "1M", value: "30" },
-  { label: "1A", value: "365" }, // usando 1 ano ao invés de "max"
+  { label: "1A", value: "365" },
 ];
 
-
 interface PriceChartProps {
-  tokenId: string; // ex: "solana"
+  tokenId: string;
 }
 
 const PriceChart = ({ tokenId }: PriceChartProps) => {
@@ -23,9 +22,8 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
     async function loadPrices() {
       const rawData = await fetchChartPrices(tokenId, range);
       const formatted = Array.isArray(rawData)
-  ? rawData.map(([time, price]) => ({ time, price }))
-  : [];
-
+        ? rawData.map(([time, price]) => ({ time, price }))
+        : [];
       setChartData(formatted);
     }
 
@@ -34,7 +32,7 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
 
   return (
     <div>
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer width="100%" height={160}>
         <LineChart data={chartData}>
           <Line
             type="monotone"
@@ -46,6 +44,7 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
         </LineChart>
       </ResponsiveContainer>
 
+      {/* Botões de período */}
       <div className="flex justify-center mt-3 gap-2">
         {RANGE_OPTIONS.map((opt) => (
           <button

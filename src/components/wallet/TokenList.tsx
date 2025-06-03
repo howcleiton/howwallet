@@ -12,7 +12,7 @@ const TokenList = () => {
       <motion.h2 
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        className="text-lg font-medium text-white mb-4"
+        className="text-lg font-medium text-black dark:text-white mb-4"
       >
         Tokens
       </motion.h2>

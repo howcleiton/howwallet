@@ -20,7 +20,7 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
 
   const realPrice = useTokenPrice(token.coingeckoId ?? '');
 
-  const priceToDisplay = token.coingeckoId && realPrice ? realPrice : token.priceUsd;
+  const priceToDisplay = realPrice !== null ? realPrice : token.priceUsd;
 
   return (
     <div className="p-4">

@@ -1,6 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class', // ✅ Corrigido aqui (estava ['class'], mas deve ser apenas 'class')
+  darkMode: 'class', // ✅ Suporte a tema escuro com classe
+  safelist: [
+    'dark',
+    'bg-background',
+    'text-foreground',
+    'bg-card',
+    'text-card-foreground',
+    'border-border',
+    'bg-muted',
+    'text-muted-foreground',
+    'bg-popover',
+    'text-popover-foreground'
+  ],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',

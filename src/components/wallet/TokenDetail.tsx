@@ -11,6 +11,9 @@ interface TokenDetailProps {
 }
 
 const TokenDetail = ({ token }: TokenDetailProps) => {
+  // 🐞 Debug: verificar se o coingeckoId está vindo corretamente
+  console.log('🪙 coingeckoId:', token.coingeckoId);
+
   const firstPrice = token.priceHistory[0];
   const lastPrice = token.priceHistory[token.priceHistory.length - 1];
   const priceChange = ((lastPrice - firstPrice) / firstPrice) * 100;

@@ -3,19 +3,19 @@ import { useWalletStore } from '@/store/walletStore';
 import MobileLayout from '@/components/layout/MobileLayout';
 import SectionHeader from '@/components/ui/section-header';
 import SettingsCard from '@/components/settings/SettingsCard';
-import { 
-  Network, 
-  Key, 
-  Import, 
-  Plus, 
-  Moon, 
+import {
+  Network,
+  Key,
+  Import,
+  Plus,
+  Moon,
   Sun,
   AlertTriangle,
 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { useTheme } from '@/hooks/useTheme';
+import { useThemeStore } from '@/store/themeStore';
 import {
   Dialog,
   DialogContent,
@@ -24,7 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { 
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -34,21 +34,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 import { formatAddress } from '@/lib/utils';
 
 const SettingsPage = () => {
   const { currentWallet, changeNetwork } = useWalletStore();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { theme, setTheme } = useTheme();
+  const { theme, toggleTheme } = useThemeStore();
 
   if (!currentWallet) return null;
 
   const handleNetworkChange = () => {
     const newNetwork = currentWallet.network === 'mainnet' ? 'devnet' : 'mainnet';
     changeNetwork(newNetwork);
-    
+
     toast({
       title: "Network Changed",
       description: `Switched to ${newNetwork === 'mainnet' ? 'Mainnet' : 'Devnet'}`,
@@ -56,11 +56,10 @@ const SettingsPage = () => {
   };
 
   const handleThemeToggle = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
+    toggleTheme();
     toast({
-      title: `${newTheme === 'dark' ? 'Dark' : 'Light'} Mode Enabled`,
-      description: `Theme switched to ${newTheme} mode`,
+      title: `${theme === 'light' ? 'Dark' : 'Light'} Mode Enabled`,
+      description: `Theme switched to ${theme === 'light' ? 'dark' : 'light'} mode`,
     });
   };
 
@@ -75,10 +74,10 @@ const SettingsPage = () => {
   return (
     <MobileLayout>
       <SectionHeader title="Settings" />
-      
+
       <div className="p-4">
         <h2 className="text-lg font-medium text-foreground mb-4">Wallet Settings</h2>
-        
+
         <SettingsCard
           icon={<Network className="w-5 h-5 text-blue-400" />}
           title="Network"
@@ -91,7 +90,7 @@ const SettingsPage = () => {
             </div>
           }
         />
-        
+
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <div>
@@ -120,7 +119,7 @@ const SettingsPage = () => {
               <AlertDialogCancel className="bg-muted hover:bg-muted/70 text-foreground border-none">
                 Cancel
               </AlertDialogCancel>
-              <AlertDialogAction 
+              <AlertDialogAction
                 className="bg-violet-600 hover:bg-violet-700 text-white"
                 onClick={() => {
                   toast({
@@ -134,7 +133,7 @@ const SettingsPage = () => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        
+
         <Dialog>
           <DialogTrigger asChild>
             <div>
@@ -153,18 +152,18 @@ const SettingsPage = () => {
                 These 12 words are the keys to your wallet. Keep them in a safe place!
               </DialogDescription>
             </DialogHeader>
-            
+
             <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-900/30 mb-4">
               <AlertTriangle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
               <p className="text-sm text-yellow-500">
                 Never share your recovery phrase with anyone!
               </p>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-2 mb-4">
               {currentWallet.seedPhrase?.map((word, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="p-2 bg-muted border border-border rounded-lg text-center"
                 >
                   <span className="text-xs text-muted-foreground mr-1">{index + 1}.</span>
@@ -172,8 +171,8 @@ const SettingsPage = () => {
                 </div>
               ))}
             </div>
-            
-            <Button 
+
+            <Button
               className="w-full bg-violet-600 hover:bg-violet-700 text-white"
               onClick={() => {
                 if (currentWallet.seedPhrase) {
@@ -189,7 +188,7 @@ const SettingsPage = () => {
             </Button>
           </DialogContent>
         </Dialog>
-        
+
         <SettingsCard
           icon={<Import className="w-5 h-5 text-purple-400" />}
           title="Import Wallet"
@@ -197,7 +196,7 @@ const SettingsPage = () => {
           onClick={handleImportWallet}
           index={3}
         />
-        
+
         <SettingsCard
           icon={<Plus className="w-5 h-5 text-blue-400" />}
           title="Create New Wallet"
@@ -207,7 +206,7 @@ const SettingsPage = () => {
         />
 
         <h2 className="text-lg font-medium text-foreground mt-6 mb-4">App Settings</h2>
-        
+
         <SettingsCard
           icon={theme === 'dark' ? <Moon className="w-5 h-5 text-indigo-400" /> : <Sun className="w-5 h-5 text-yellow-400" />}
           title="Dark Mode"
@@ -220,7 +219,7 @@ const SettingsPage = () => {
             />
           }
         />
-        
+
         <div className="mt-8 text-center text-xs text-muted-foreground">
           <p>How Wallet v1.0.0</p>
           <p className="mt-1">Wallet Address: {formatAddress(currentWallet.address)}</p>

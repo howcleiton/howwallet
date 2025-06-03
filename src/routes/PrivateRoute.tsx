@@ -1,21 +1,22 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useWalletStore } from '@/store/walletStore';
 
-const allowedPaths = ['/create-wallet', '/import-wallet', '/onboarding'];
+const allowedPaths = ['/create-wallet', '/import-wallet'];
 
 export default function PrivateRoute() {
   const { currentWallet, hasHydrated } = useWalletStore();
   const location = useLocation();
 
-  // Aguarda Zustand carregar para evitar loops
+  // Espera Zustand hidratar
   if (!hasHydrated) {
-    return null; // ou <div>Loading...</div>
+    return null; // ou <div>Carregando...</div>
   }
 
   const isAllowed = allowedPaths.some((path) =>
     location.pathname.startsWith(path)
   );
 
+  // Redireciona para criação de carteira se não tiver wallet
   if (!currentWallet && !isAllowed) {
     return <Navigate to="/create-wallet" replace />;
   }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -26,7 +26,7 @@ const pageVariants = {
 const MobileLayout = ({ children, className }: MobileLayoutProps) => {
   const location = useLocation();
 
-  // Lista de rotas onde o BottomNav deve aparecer
+  // Rotas nas quais o menu inferior deve aparecer
   const showBottomNavRoutes = [
     '/wallet',
     '/dashboard',
@@ -35,10 +35,16 @@ const MobileLayout = ({ children, className }: MobileLayoutProps) => {
     '/settings',
   ];
 
-  // Verifica se a rota atual começa com algum dos caminhos acima
+  // Verifica se a rota atual começa com alguma das rotas acima
   const showBottomNav = showBottomNavRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
+
+  // Apenas para depuração: exibe a rota atual no console do navegador
+  useEffect(() => {
+    console.log('Rota atual:', location.pathname);
+    console.log('Mostrar BottomNav?', showBottomNav);
+  }, [location.pathname, showBottomNav]);
 
   return (
     <div className="flex justify-center bg-background text-foreground transition-colors duration-300 min-h-screen">
@@ -53,7 +59,7 @@ const MobileLayout = ({ children, className }: MobileLayoutProps) => {
           {children}
         </motion.main>
 
-        {/* Renderiza o menu inferior apenas nas rotas válidas */}
+        {/* Só mostra se estiver em rota válida */}
         {showBottomNav && <BottomNav />}
       </div>
     </div>

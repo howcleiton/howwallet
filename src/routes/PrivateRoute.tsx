@@ -7,13 +7,14 @@ export default function PrivateRoute() {
   const { currentWallet, hasHydrated } = useWalletStore();
   const location = useLocation();
 
-  const isAllowed = allowedPaths.some(path =>
+  // Aguarda Zustand carregar para evitar loops
+  if (!hasHydrated) {
+    return null; // ou <div>Loading...</div>
+  }
+
+  const isAllowed = allowedPaths.some((path) =>
     location.pathname.startsWith(path)
   );
-
-  if (!hasHydrated) {
-    return null; // Evita renderização antes do Zustand carregar
-  }
 
   if (!currentWallet && !isAllowed) {
     return <Navigate to="/create-wallet" replace />;

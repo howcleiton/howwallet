@@ -9,7 +9,7 @@ interface TokenCardProps {
 }
 
 const TokenCard = ({ token, index }: TokenCardProps) => {
-  // Tenta carregar ícone da rede Solana
+  // Monta a URL do ícone com base no mintAddress da rede Solana
   const iconUrl = `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
 
   return (
@@ -25,7 +25,10 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = '/icons/default-token.png';
+                const target = e.target as HTMLImageElement;
+                if (!target.src.includes('default-token.png')) {
+                  target.src = '/icons/default-token.png';
+                }
               }}
             />
           </div>
@@ -37,7 +40,9 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
         </div>
         
         <div className="text-right">
-          <p className="font-medium text-white">{formatAmount(token.balance)} {token.symbol}</p>
+          <p className="font-medium text-white">
+            {formatAmount(token.balance)} {token.symbol}
+          </p>
           <p className="text-sm text-gray-400">{formatUSD(token.usdValue)}</p>
         </div>
       </CardContainer>

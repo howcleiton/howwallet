@@ -18,8 +18,10 @@ const DiscoverPage = () => {
       
       <div className="p-4">
         <div className="mb-6">
-          <h2 className="text-lg font-medium text-white mb-1">DApps</h2>
-          <p className="text-sm text-gray-400">
+          <h2 className="text-lg font-medium text-black dark:text-white mb-1">
+            DApps
+          </h2>
+          <p className="text-sm text-gray-700 dark:text-gray-400">
             Explore decentralized applications on Solana
           </p>
         </div>

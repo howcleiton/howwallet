@@ -31,7 +31,7 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
   const getIconColor = () => {
     if (status === 'failed') return 'text-red-500';
     if (status === 'pending') return 'text-yellow-500';
-    
+
     switch (type) {
       case 'send':
         return 'text-red-400';
@@ -69,31 +69,31 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
   return (
     <CardContainer 
       delay={index}
-      className="mb-3 flex items-center justify-between"
+      className="mb-3 flex items-center justify-between bg-white dark:bg-zinc-900 text-black dark:text-white"
     >
       <div className="flex items-center">
         <div className={cn(
           "w-10 h-10 rounded-full flex items-center justify-center mr-3",
-          "bg-muted"
+          "bg-gray-200 dark:bg-zinc-800"
         )}>
           <Icon className={cn("w-5 h-5", getIconColor())} />
         </div>
         
         <div>
           <div className="flex items-center">
-            <h3 className="font-medium text-foreground mr-2">{getTitle()}</h3>
+            <h3 className="font-medium text-black dark:text-white mr-2">{getTitle()}</h3>
             {status === 'pending' && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-900/30 text-yellow-400">
+              <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-200 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-400">
                 Pending
               </span>
             )}
             {status === 'failed' && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-red-900/30 text-red-400">
+              <span className="text-xs px-2 py-0.5 rounded-full bg-red-200 dark:bg-red-900 text-red-700 dark:text-red-400">
                 Failed
               </span>
             )}
           </div>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             {formatAddress(address)} • {formatDate(timestamp)}
           </p>
         </div>
@@ -102,11 +102,11 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
       <div className="text-right">
         <p className={cn(
           "font-medium",
-          type === 'send' ? "text-red-400" : "text-foreground"
+          type === 'send' ? "text-red-400" : "text-black dark:text-white"
         )}>
           {type === 'send' ? '-' : type === 'receive' ? '+' : ''}{formatAmount(amount)} {token}
         </p>
-        <p className="text-xs text-muted-foreground">{formatTime(timestamp)}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{formatTime(timestamp)}</p>
       </div>
     </CardContainer>
   );

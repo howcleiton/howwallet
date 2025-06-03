@@ -60,7 +60,7 @@ const mockTokens: Token[] = [
     usdValue: 17.0,
     priceUsd: 0.4,
     priceHistory: [0.38, 0.39, 0.41, 0.4, 0.42, 0.41, 0.4, 0.39, 0.4, 0.4, 0.4],
-    mintAddress: '2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv'
+    mintAddress: '4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R'
   }
 ];
 

@@ -1,7 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import BottomNav from './BottomNav';
+import { useWalletStore } from '@/store/walletStore';
 
 interface MobileLayoutProps {
   children: ReactNode;
@@ -31,6 +33,19 @@ const pageVariants = {
 };
 
 const MobileLayout = ({ children, className }: MobileLayoutProps) => {
+  const { currentWallet } = useWalletStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const allowedPaths = ['/create-wallet', '/import-wallet', '/onboarding'];
+    const isAllowed = allowedPaths.some(path => location.pathname.startsWith(path));
+
+    if (!currentWallet && !isAllowed) {
+      navigate('/create-wallet');
+    }
+  }, [currentWallet, location.pathname, navigate]);
+
   return (
     <div className="flex flex-col min-h-screen bg-[#0b0b0f]">
       <motion.main

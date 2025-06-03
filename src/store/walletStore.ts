@@ -17,23 +17,23 @@ interface WalletState {
 }
 
 // Mock token data
-const mockTokens: Token[] = [
+cconst mockTokens: Token[] = [
   {
     id: '1',
     name: 'Solana',
     symbol: 'SOL',
-    iconUrl: 'https://cryptologos.cc/logos/solana-sol-logo.png',
+    iconUrl: '',
     balance: 3.14159,
     usdValue: 345.57,
     priceUsd: 110.0,
     priceHistory: [102, 104, 99, 105, 110, 108, 112, 110, 114, 116, 110],
-    mintAddress: 'So11111111111111111111111111111111111111112'
+    mintAddress: '7nHtVnJ7F6ePgYUFgRtEzM9DAE12hRsAXTWymb4epFkv'
   },
   {
     id: '2',
     name: 'USD Coin',
     symbol: 'USDC',
-    iconUrl: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png',
+    iconUrl: '',
     balance: 250.75,
     usdValue: 250.75,
     priceUsd: 1.0,
@@ -44,7 +44,7 @@ const mockTokens: Token[] = [
     id: '3',
     name: 'Serum',
     symbol: 'SRM',
-    iconUrl: 'https://cryptologos.cc/logos/serum-srm-logo.png',
+    iconUrl: '',
     balance: 153.25,
     usdValue: 24.52,
     priceUsd: 0.16,
@@ -55,7 +55,7 @@ const mockTokens: Token[] = [
     id: '4',
     name: 'Raydium',
     symbol: 'RAY',
-    iconUrl: 'https://cryptologos.cc/logos/raydium-ray-logo.png',
+    iconUrl: '',
     balance: 42.5,
     usdValue: 17.0,
     priceUsd: 0.4,
@@ -63,6 +63,7 @@ const mockTokens: Token[] = [
     mintAddress: '4k3Dyjzvzp8eGc5uxZ9qLGbyv8mfs83LB7TFFB5jvuGH'
   }
 ];
+
 
 // Mock transaction data
 const mockTransactions: Transaction[] = [

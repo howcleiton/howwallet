@@ -9,17 +9,16 @@ interface TokenCardProps {
 }
 
 const TokenCard = ({ token, index }: TokenCardProps) => {
-  // Monta a URL do ícone com base no mintAddress da rede Solana
   const iconUrl = `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
 
   return (
     <Link to={`/token/${token.id}`}>
       <CardContainer 
         delay={index}
-        className="flex items-center justify-between mb-3 p-4 hover:bg-[#1a1a28] transition-colors"
+        className="flex items-center justify-between mb-3 p-4 hover:bg-[#1a1a28] dark:hover:bg-[#1a1a28] hover:bg-zinc-100 transition-colors"
       >
         <div className="flex items-center">
-          <div className="w-10 h-10 rounded-full bg-[#1e1e2e] p-1 mr-3 flex-shrink-0 overflow-hidden">
+          <div className="w-10 h-10 rounded-full bg-transparent p-0 mr-3 flex-shrink-0 overflow-hidden">
             <img 
               src={iconUrl}
               alt={token.name}
@@ -34,16 +33,16 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
           </div>
           
           <div>
-            <h3 className="font-medium text-white">{token.name}</h3>
-            <p className="text-sm text-gray-400">{token.symbol}</p>
+            <h3 className="font-medium text-zinc-900 dark:text-white">{token.name}</h3>
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">{token.symbol}</p>
           </div>
         </div>
         
         <div className="text-right">
-          <p className="font-medium text-white">
+          <p className="font-medium text-zinc-900 dark:text-white">
             {formatAmount(token.balance)} {token.symbol}
           </p>
-          <p className="text-sm text-gray-400">{formatUSD(token.usdValue)}</p>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">{formatUSD(token.usdValue)}</p>
         </div>
       </CardContainer>
     </Link>

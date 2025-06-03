@@ -9,7 +9,8 @@ export interface Token {
   usdValue: number;
   priceUsd: number;
   priceHistory: number[];
-  mintAddress: string; // ✅ Adicionado aqui
+  mintAddress: string;
+  coingeckoId?: string; // ✅ Adicionado aqui
 }
 
 export interface Wallet {
@@ -30,7 +31,7 @@ export interface Transaction {
   type: TransactionType;
   status: TransactionStatus;
   amount: number;
-  token: string; // Token symbol
+  token: string;
   timestamp: number;
   address: string;
   fee?: number;

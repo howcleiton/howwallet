@@ -1,30 +1,48 @@
 import { useEffect, useState } from "react";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
-import { fetchChartPrices } from "@/lib/utils";
 
 const RANGE_OPTIONS = [
-  { label: "1H", value: "0.04" },
-  { label: "1D", value: "1" },
-  { label: "1S", value: "7" },
-  { label: "1M", value: "30" },
-  { label: "1A", value: "365" },
+  { label: "1H", value: "1m" },   // 1 minuto = último 1h
+  { label: "1D", value: "1h" },   // 1 hora = último 1d
+  { label: "1S", value: "4h" },   // aproxima 1 semana
+  { label: "1M", value: "1d" },   // 1 dia = último 1m
+  { label: "1A", value: "7d" },   // 7 dias agrupados = aproxima 1 ano
 ];
 
 interface PriceChartProps {
-  tokenId: string;
+  tokenId: string; // será o mintAddress agora
 }
 
 const PriceChart = ({ tokenId }: PriceChartProps) => {
-  const [range, setRange] = useState("1");
+  const [range, setRange] = useState("1h");
   const [chartData, setChartData] = useState<{ time: number; price: number }[]>([]);
 
   useEffect(() => {
     async function loadPrices() {
-      const rawData = await fetchChartPrices(tokenId, range);
-      const formatted = Array.isArray(rawData)
-        ? rawData.map(([time, price]) => ({ time, price }))
-        : [];
-      setChartData(formatted);
+      try {
+        const response = await fetch(`https://public-api.birdeye.so/public/price_history?address=${tokenId}&interval=${range}`, {
+          headers: {
+            "X-API-KEY": "CleitonG2228",
+            "accept": "application/json",
+          },
+        });
+
+        const data = await response.json();
+
+        if (data?.data?.items && Array.isArray(data.data.items)) {
+          const formatted = data.data.items.map((item: any) => ({
+            time: item.timestamp,
+            price: item.value,
+          }));
+          setChartData(formatted);
+        } else {
+          console.warn("⚠️ Dados de gráfico inválidos:", data);
+          setChartData([]);
+        }
+      } catch (err) {
+        console.error("❌ Erro ao buscar histórico da Birdeye:", err);
+        setChartData([]);
+      }
     }
 
     loadPrices();

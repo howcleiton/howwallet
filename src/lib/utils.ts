@@ -65,13 +65,12 @@ export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// ✅ Função final segura para CoinGecko (com tratamento de erro completo)
+// ✅ Função para buscar histórico de preço (CoinGecko) com tratamento de erro
 export async function fetchChartPrices(tokenId: string, days: string): Promise<number[][]> {
   try {
     const response = await fetch(`/.netlify/functions/coingecko?tokenId=${tokenId}&days=${days}`);
     const data = await response.json();
 
-    // CoinGecko pode retornar "status" com erro
     if (data?.status && (data.status.error_code || data.status.error)) {
       console.error('❌ CoinGecko respondeu com erro:', data.status);
       return [];
@@ -86,5 +85,23 @@ export async function fetchChartPrices(tokenId: string, days: string): Promise<n
   } catch (error) {
     console.error('❌ Erro na função coingecko:', error);
     return [];
+  }
+}
+
+// ✅ NOVA: Buscar preço atual em tempo real com a API da Birdeye
+export async function fetchTokenPrice(mintAddress: string): Promise<number | null> {
+  try {
+    const response = await fetch(`/.netlify/functions/birdeye?address=${mintAddress}`);
+    const data = await response.json();
+
+    if (data?.data?.value) {
+      return data.data.value;
+    }
+
+    console.warn('⚠️ Preço não encontrado para o token:', mintAddress, data);
+    return null;
+  } catch (error) {
+    console.error('❌ Erro ao buscar preço da Birdeye:', error);
+    return null;
   }
 }

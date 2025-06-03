@@ -1,18 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Token } from '@/types';
-import { formatAmount, formatUSD } from '@/lib/utils';
+import { formatAmount, formatUSD, fetchTokenPrice } from '@/lib/utils';
 import PriceChart from './PriceChart';
 import CardContainer from '@/components/ui/card-container';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useTokenPrice } from '@/hooks/useTokenPrice';
 
 interface TokenDetailProps {
   token: Token;
 }
 
 const TokenDetail = ({ token }: TokenDetailProps) => {
-  // 🐞 Debug: verificar se o coingeckoId está vindo corretamente
-  console.log('🪙 coingeckoId:', token.coingeckoId);
+  const [realPrice, setRealPrice] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function loadPrice() {
+      const price = await fetchTokenPrice(token.mintAddress);
+      setRealPrice(price);
+    }
+
+    loadPrice();
+  }, [token.mintAddress]);
 
   const firstPrice = token.priceHistory[0];
   const lastPrice = token.priceHistory[token.priceHistory.length - 1];
@@ -20,8 +28,6 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
   const isPriceUp = priceChange >= 0;
 
   const iconUrl = `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
-
-  const realPrice = useTokenPrice(token.coingeckoId ?? '');
 
   const priceToDisplay = realPrice !== null ? realPrice : token.priceUsd;
 
@@ -64,10 +70,8 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
           </div>
         </div>
 
-        {/* ✅ Gráfico com filtros e preços reais */}
-        {token.coingeckoId && (
-          <PriceChart tokenId={token.coingeckoId} />
-        )}
+        {/* ✅ Agora usando gráfico com histórico via Birdeye (mintAddress) */}
+        <PriceChart tokenId={token.mintAddress} />
 
         <div className="mt-4 p-4 rounded-xl 
                         bg-zinc-100 dark:bg-zinc-900 

@@ -15,17 +15,20 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
   const priceChange = ((lastPrice - firstPrice) / firstPrice) * 100;
   const isPriceUp = priceChange >= 0;
 
+  // URL dinâmica do logo (Solana)
+  const iconUrl = `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
+
   return (
     <div className="p-4">
       <CardContainer className="mb-6">
         <div className="flex items-center mb-4">
           <div className="w-12 h-12 rounded-full bg-zinc-200 dark:bg-zinc-700 p-1 mr-3 overflow-hidden">
             <img 
-              src={token.iconUrl} 
+              src={iconUrl} 
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                (e.target as HTMLImageElement).src = '/default-token-icon.png';
               }}
             />
           </div>

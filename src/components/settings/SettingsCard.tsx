@@ -45,3 +45,11 @@ const SettingsCard = ({
       
       <div className="flex items-center">
         {rightContent || (
+          onClick ? <ChevronRight className="w-5 h-5 text-muted-foreground" /> : null
+        )}
+      </div>
+    </CardContainer>
+  );
+};
+
+export default SettingsCard;

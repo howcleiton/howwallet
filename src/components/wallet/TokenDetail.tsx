@@ -19,7 +19,7 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
     <div className="p-4">
       <CardContainer className="mb-6">
         <div className="flex items-center mb-4">
-          <div className="w-12 h-12 rounded-full bg-[#1e1e2e] p-1 mr-3 overflow-hidden">
+          <div className="w-12 h-12 rounded-full bg-zinc-200 dark:bg-zinc-700 p-1 mr-3 overflow-hidden">
             <img 
               src={token.iconUrl} 
               alt={token.name}
@@ -30,15 +30,15 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
             />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-white">{token.name}</h2>
-            <p className="text-gray-400">{token.symbol}</p>
+            <h2 className="text-xl font-semibold text-zinc-900 dark:text-white">{token.name}</h2>
+            <p className="text-zinc-500 dark:text-zinc-400">{token.symbol}</p>
           </div>
         </div>
 
         <div className="mb-3">
-          <h3 className="text-3xl font-bold text-white">{formatUSD(token.priceUsd)}</h3>
+          <h3 className="text-3xl font-bold text-zinc-900 dark:text-white">{formatUSD(token.priceUsd)}</h3>
           <div className="flex items-center mt-1">
-            <div className={`flex items-center ${isPriceUp ? 'text-green-400' : 'text-red-400'}`}>
+            <div className={`flex items-center ${isPriceUp ? 'text-green-500' : 'text-red-500'}`}>
               {isPriceUp ? (
                 <ArrowUp className="w-4 h-4 mr-1" />
               ) : (
@@ -48,35 +48,47 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
                 {Math.abs(priceChange).toFixed(2)}%
               </span>
             </div>
-            <span className="text-sm text-gray-400 ml-2">24h</span>
+            <span className="text-sm text-zinc-500 dark:text-zinc-400 ml-2">24h</span>
           </div>
         </div>
 
         <PriceChart token={token} />
 
-        <div className="bg-[#1a1a28] rounded-xl p-4">
+        <div className="mt-4 p-4 rounded-xl 
+                        bg-zinc-100 dark:bg-zinc-900 
+                        text-zinc-800 dark:text-white 
+                        shadow-md transition-colors duration-300">
           <div className="flex justify-between mb-4">
             <div>
-              <p className="text-sm text-gray-400 mb-1">Your Balance</p>
-              <p className="text-xl font-semibold text-white">{formatAmount(token.balance)} {token.symbol}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-1">Your Balance</p>
+              <p className="text-xl font-semibold">
+                {formatAmount(token.balance)} {token.symbol}
+              </p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-gray-400 mb-1">Value</p>
-              <p className="text-xl font-semibold text-white">{formatUSD(token.usdValue)}</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-1">Value</p>
+              <p className="text-xl font-semibold">
+                {formatUSD(token.usdValue)}
+              </p>
             </div>
           </div>
 
           <div className="flex gap-3">
             <Link 
               to={`/send?token=${token.symbol}`}
-              className="flex-1 py-2.5 flex items-center justify-center rounded-xl bg-violet-600 hover:bg-violet-700 text-white transition-colors"
+              className="flex-1 py-2.5 flex items-center justify-center rounded-xl 
+                         bg-violet-600 hover:bg-violet-700 
+                         text-white transition-colors"
             >
               <ArrowUp className="w-4 h-4 mr-1.5" />
               <span>Send</span>
             </Link>
             <Link 
               to="/receive"
-              className="flex-1 py-2.5 flex items-center justify-center rounded-xl bg-[#252536] hover:bg-[#2d2d46] text-white transition-colors"
+              className="flex-1 py-2.5 flex items-center justify-center rounded-xl 
+                         bg-zinc-200 hover:bg-zinc-300 
+                         dark:bg-zinc-700 dark:hover:bg-zinc-600 
+                         text-zinc-800 dark:text-white transition-colors"
             >
               <ArrowDown className="w-4 h-4 mr-1.5" />
               <span>Receive</span>

@@ -1,6 +1,6 @@
 import { Transaction } from '@/types';
 import { formatAmount, formatAddress, formatDate, formatTime } from '@/lib/utils';
-import { ArrowUpRight, ArrowDownLeft, Repeat, Coins } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, Repeat, Coins, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import CardContainer from '@/components/ui/card-container';
 
@@ -43,7 +43,7 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
       case 'unstake':
         return 'text-purple-400';
       default:
-        return 'text-gray-400';
+        return 'text-muted-foreground';
     }
   };
 
@@ -74,14 +74,14 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
       <div className="flex items-center">
         <div className={cn(
           "w-10 h-10 rounded-full flex items-center justify-center mr-3",
-          "bg-[#1e1e2e]"
+          "bg-muted"
         )}>
           <Icon className={cn("w-5 h-5", getIconColor())} />
         </div>
         
         <div>
           <div className="flex items-center">
-            <h3 className="font-medium text-white mr-2">{getTitle()}</h3>
+            <h3 className="font-medium text-foreground mr-2">{getTitle()}</h3>
             {status === 'pending' && (
               <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-900/30 text-yellow-400">
                 Pending
@@ -93,7 +93,7 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
               </span>
             )}
           </div>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-muted-foreground">
             {formatAddress(address)} • {formatDate(timestamp)}
           </p>
         </div>
@@ -102,11 +102,11 @@ const TransactionCard = ({ transaction, index }: TransactionCardProps) => {
       <div className="text-right">
         <p className={cn(
           "font-medium",
-          type === 'send' ? "text-red-400" : "text-white"
+          type === 'send' ? "text-red-400" : "text-foreground"
         )}>
           {type === 'send' ? '-' : type === 'receive' ? '+' : ''}{formatAmount(amount)} {token}
         </p>
-        <p className="text-xs text-gray-400">{formatTime(timestamp)}</p>
+        <p className="text-xs text-muted-foreground">{formatTime(timestamp)}</p>
       </div>
     </CardContainer>
   );

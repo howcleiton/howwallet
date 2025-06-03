@@ -28,7 +28,7 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
       <motion.h2 
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        className="text-lg font-medium text-white mb-4"
+        className="text-lg font-medium text-foreground mb-4"
       >
         Transactions
       </motion.h2>
@@ -41,8 +41,8 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
             className={cn(
               "px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors",
               filter === item.value 
-                ? "bg-violet-600 text-white" 
-                : "bg-[#1e1e2e] text-gray-400 hover:bg-[#252536]"
+                ? "bg-violet-600 text-foreground" 
+                : "bg-muted text-muted-foreground hover:bg-[#252536]"
             )}
           >
             {item.label}
@@ -62,7 +62,7 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
         </div>
       ) : (
         <div className="text-center p-6">
-          <p className="text-gray-400">No transactions found</p>
+          <p className="text-muted-foreground">No transactions found</p>
         </div>
       )}
     </div>

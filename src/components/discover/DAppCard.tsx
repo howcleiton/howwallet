@@ -14,7 +14,7 @@ const DAppCard = ({ dapp, index }: DAppCardProps) => {
       className="mb-4 overflow-hidden"
     >
       <div className="flex items-start">
-        <div className="w-12 h-12 rounded-xl bg-[#1e1e2e] p-1 mr-4 flex-shrink-0 overflow-hidden">
+        <div className="w-12 h-12 rounded-xl bg-muted p-1 mr-4 flex-shrink-0 overflow-hidden">
           <img 
             src={dapp.iconUrl} 
             alt={dapp.name}
@@ -28,13 +28,13 @@ const DAppCard = ({ dapp, index }: DAppCardProps) => {
         
         <div className="flex-1">
           <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-white">{dapp.name}</h3>
+            <h3 className="font-semibold text-foreground">{dapp.name}</h3>
             <span className="text-xs px-2 py-0.5 rounded-full bg-[#252536] text-violet-300">
               {dapp.category}
             </span>
           </div>
           
-          <p className="text-sm text-gray-400 mt-1 mb-3">
+          <p className="text-sm text-muted-foreground mt-1 mb-3">
             {dapp.description}
           </p>
           
@@ -42,7 +42,7 @@ const DAppCard = ({ dapp, index }: DAppCardProps) => {
             href={dapp.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-sm transition-colors"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-foreground text-sm transition-colors"
           >
             <span>Launch</span>
             <ExternalLink className="w-3.5 h-3.5" />

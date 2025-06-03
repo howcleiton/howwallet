@@ -69,5 +69,12 @@ export function delay(ms: number): Promise<void> {
 export async function fetchChartPrices(tokenId: string, days: string): Promise<number[][]> {
   const response = await fetch(`/.netlify/functions/coingecko?tokenId=${tokenId}&days=${days}`);
   const data = await response.json();
-  return data.prices; // formato: [[timestamp, price]]
+
+  if (!data?.prices || !Array.isArray(data.prices)) {
+    console.error('❌ Erro: resposta inválida da função coingecko', data);
+    return [];
+  }
+
+  return data.prices;
 }
+

@@ -21,7 +21,10 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
   useEffect(() => {
     async function loadPrices() {
       const rawData = await fetchChartPrices(tokenId, range);
-      const formatted = rawData.map(([time, price]) => ({ time, price }));
+      const formatted = Array.isArray(rawData)
+  ? rawData.map(([time, price]) => ({ time, price }))
+  : [];
+
       setChartData(formatted);
     }
 

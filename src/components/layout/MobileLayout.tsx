@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import BottomNav from './BottomNav';
 
@@ -23,6 +24,17 @@ const pageVariants = {
 };
 
 const MobileLayout = ({ children, className }: MobileLayoutProps) => {
+  const location = useLocation();
+
+  // Define em quais rotas o menu inferior deve aparecer
+  const showBottomNav = [
+    '/wallet',
+    '/dashboard',
+    '/discover',
+    '/activity',
+    '/settings',
+  ].includes(location.pathname);
+
   return (
     <div className="flex justify-center bg-background text-foreground transition-colors duration-300 min-h-screen">
       <div className="w-full max-w-md min-h-screen flex flex-col">
@@ -35,7 +47,9 @@ const MobileLayout = ({ children, className }: MobileLayoutProps) => {
         >
           {children}
         </motion.main>
-        <BottomNav />
+
+        {/* Renderiza o menu inferior só nas rotas definidas */}
+        {showBottomNav && <BottomNav />}
       </div>
     </div>
   );

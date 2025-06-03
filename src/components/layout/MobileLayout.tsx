@@ -32,16 +32,13 @@ const pageVariants = {
 
 const MobileLayout = ({ children, className }: MobileLayoutProps) => {
   return (
-    <div className="flex flex-col min-h-screen bg-[#0b0b0f]">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <motion.main
         variants={pageVariants}
         initial="initial"
         animate="animate"
         exit="exit"
-        className={cn(
-          "flex-1 overflow-y-auto pb-20 md:pb-0 max-w-md mx-auto w-full",
-          className
-        )}
+        className={cn('pb-20 px-4', className)}
       >
         {children}
       </motion.main>

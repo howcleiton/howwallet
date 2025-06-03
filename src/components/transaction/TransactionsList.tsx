@@ -28,7 +28,7 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
       <motion.h2 
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
-        className="text-lg font-medium text-black dark:text-white mb-4"
+        className="text-lg font-medium text-zinc-900 dark:text-white mb-4"
       >
         Transactions
       </motion.h2>
@@ -42,7 +42,7 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
               "px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition-colors",
               filter === item.value 
                 ? "bg-violet-600 text-white"
-                : "bg-gray-200 dark:bg-zinc-800 text-black dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-zinc-700"
+                : "bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-gray-300 hover:bg-zinc-300 dark:hover:bg-zinc-700"
             )}
           >
             {item.label}
@@ -62,7 +62,7 @@ const TransactionsList = ({ tokenSymbol }: { tokenSymbol?: string }) => {
         </div>
       ) : (
         <div className="text-center p-6">
-          <p className="text-gray-500 dark:text-gray-400">No transactions found</p>
+          <p className="text-zinc-500 dark:text-zinc-400">No transactions found</p>
         </div>
       )}
     </div>

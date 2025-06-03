@@ -66,7 +66,7 @@ const mockTransactions: Transaction[] = [
     status: 'success',
     amount: 1.5,
     token: 'SOL',
-    timestamp: Date.now() - 1000 * 60 * 60 * 2, // 2 hours ago
+    timestamp: Date.now() - 1000 * 60 * 60 * 2,
     address: '0x123456789abcdef123456789abcdef123456789a'
   },
   {
@@ -75,7 +75,7 @@ const mockTransactions: Transaction[] = [
     status: 'success',
     amount: 0.5,
     token: 'SOL',
-    timestamp: Date.now() - 1000 * 60 * 60 * 24, // 1 day ago
+    timestamp: Date.now() - 1000 * 60 * 60 * 24,
     address: '0xabcdef123456789abcdef123456789abcdef1234'
   },
   {
@@ -84,7 +84,7 @@ const mockTransactions: Transaction[] = [
     status: 'success',
     amount: 10,
     token: 'USDC',
-    timestamp: Date.now() - 1000 * 60 * 60 * 24 * 2, // 2 days ago
+    timestamp: Date.now() - 1000 * 60 * 60 * 24 * 2,
     address: '0x0000000000000000000000000000000000000000'
   },
   {
@@ -93,7 +93,7 @@ const mockTransactions: Transaction[] = [
     status: 'pending',
     amount: 0.2,
     token: 'SOL',
-    timestamp: Date.now() - 1000 * 60 * 10, // 10 minutes ago
+    timestamp: Date.now() - 1000 * 60 * 10,
     address: '0x0000000000000000000000000000000000000000'
   },
   {
@@ -102,7 +102,7 @@ const mockTransactions: Transaction[] = [
     status: 'success',
     amount: 25,
     token: 'USDC',
-    timestamp: Date.now() - 1000 * 60 * 60 * 24 * 3, // 3 days ago
+    timestamp: Date.now() - 1000 * 60 * 60 * 24 * 3,
     address: '0x9876543210fedcba9876543210fedcba98765432'
   },
   {
@@ -111,23 +111,10 @@ const mockTransactions: Transaction[] = [
     status: 'failed',
     amount: 0.1,
     token: 'SOL',
-    timestamp: Date.now() - 1000 * 60 * 30, // 30 minutes ago
+    timestamp: Date.now() - 1000 * 60 * 30,
     address: '0xfedcba9876543210fedcba9876543210fedcba98'
   }
 ];
-
-// Generate default wallet
-const generateDefaultWallet = (): Wallet => {
-  const seedPhrase = generateMockSeedPhrase();
-  return {
-    id: '1',
-    name: 'My Wallet',
-    address: generateMockWalletAddress(),
-    network: 'mainnet',
-    tokens: mockTokens,
-    seedPhrase
-  };
-};
 
 export const useWalletStore = create<WalletState>()(
   persist(
@@ -138,10 +125,9 @@ export const useWalletStore = create<WalletState>()(
 
       createWallet: async (name) => {
         set({ isWalletLoading: true });
-        
-        // Simulate delay for wallet creation
+
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
+
         const seedPhrase = generateMockSeedPhrase();
         const newWallet: Wallet = {
           id: Date.now().toString(),
@@ -151,17 +137,16 @@ export const useWalletStore = create<WalletState>()(
           tokens: mockTokens,
           seedPhrase
         };
-        
+
         set({ currentWallet: newWallet, isWalletLoading: false });
         return newWallet;
       },
 
       importWallet: async (seedPhrase, name) => {
         set({ isWalletLoading: true });
-        
-        // Simulate delay for wallet import
+
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
+
         const newWallet: Wallet = {
           id: Date.now().toString(),
           name: name || 'Imported Wallet',
@@ -170,13 +155,12 @@ export const useWalletStore = create<WalletState>()(
           tokens: mockTokens,
           seedPhrase
         };
-        
+
         set({ currentWallet: newWallet, isWalletLoading: false });
         return newWallet;
       },
 
       selectWallet: (walletId) => {
-        // In a real app, we would select from multiple wallets
         console.log('Selecting wallet:', walletId);
       },
 
@@ -194,10 +178,9 @@ export const useWalletStore = create<WalletState>()(
 
       sendToken: async (tokenSymbol, amount, recipient) => {
         set({ isWalletLoading: true });
-        
-        // Simulate network delay
+
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
+
         const newTransaction: Transaction = {
           id: Date.now().toString(),
           type: 'send',
@@ -207,19 +190,17 @@ export const useWalletStore = create<WalletState>()(
           timestamp: Date.now(),
           address: recipient
         };
-        
-        // Add the new transaction to the beginning of the list
+
         set(state => ({
           transactions: [newTransaction, ...state.transactions],
           isWalletLoading: false
         }));
-        
+
         return newTransaction;
       }
     }),
     {
       name: 'how-wallet',
-      // Only store the wallet data, not the methods
       partialize: (state) => ({
         currentWallet: state.currentWallet,
         transactions: state.transactions

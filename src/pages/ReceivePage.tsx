@@ -3,7 +3,6 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useWalletStore } from '@/store/walletStore';
 import MobileLayout from '@/components/layout/MobileLayout';
 import SectionHeader from '@/components/ui/section-header';
-import { formatAddress } from '@/lib/utils';
 import { CopyIcon, CheckIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';

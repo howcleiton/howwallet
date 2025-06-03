@@ -61,7 +61,10 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
           </div>
         </div>
 
-        <PriceChart token={token} />
+        {/* ✅ Gráfico com filtros e preços reais */}
+        {token.coingeckoId && (
+          <PriceChart tokenId={token.coingeckoId} />
+        )}
 
         <div className="mt-4 p-4 rounded-xl 
                         bg-zinc-100 dark:bg-zinc-900 

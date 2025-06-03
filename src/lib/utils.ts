@@ -64,3 +64,12 @@ export function generateMockWalletAddress(): string {
 export function delay(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// ✅ Função adicionada para buscar preços reais da CoinGecko
+export async function fetchChartPrices(tokenId: string, days: string): Promise<number[][]> {
+  const response = await fetch(
+    `https://api.coingecko.com/api/v3/coins/${tokenId}/market_chart?vs_currency=usd&days=${days}`
+  );
+  const data = await response.json();
+  return data.prices; // formato: [[timestamp, price]]
+}

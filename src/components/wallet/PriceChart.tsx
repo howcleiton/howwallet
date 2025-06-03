@@ -1,78 +1,62 @@
-import { useMemo } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { Token } from '@/types';
-import { formatUSD } from '@/lib/utils';
+import { useEffect, useState } from "react";
+import { LineChart, Line, ResponsiveContainer } from "recharts";
+import { fetchChartPrices } from "@/lib/utils";
+
+const RANGE_OPTIONS = [
+  { label: "1H", value: "0.04" },
+  { label: "1D", value: "1" },
+  { label: "1S", value: "7" },
+  { label: "1M", value: "30" },
+  { label: "TUDO", value: "max" },
+];
 
 interface PriceChartProps {
-  token: Token;
+  tokenId: string; // ex: "solana"
 }
 
-const PriceChart = ({ token }: PriceChartProps) => {
-  const chartData = useMemo(() => {
-    // Convert price history array to chart data with timestamps
-    const now = Date.now();
-    const oneHour = 60 * 60 * 1000;
-    
-    return token.priceHistory.map((price, index) => {
-      // Create timestamps going back in time, 1 hour apart
-      const timestamp = now - (token.priceHistory.length - index - 1) * oneHour;
-      return {
-        timestamp,
-        price
-      };
-    });
-  }, [token.priceHistory]);
+const PriceChart = ({ tokenId }: PriceChartProps) => {
+  const [range, setRange] = useState("1");
+  const [chartData, setChartData] = useState<{ time: number; price: number }[]>([]);
 
-  // Calculate min and max price for y-axis domain with some padding
-  const minPrice = Math.min(...token.priceHistory) * 0.95;
-  const maxPrice = Math.max(...token.priceHistory) * 1.05;
-
-  // Determine if price is trending up or down
-  const priceChange = token.priceHistory[token.priceHistory.length - 1] - token.priceHistory[0];
-  const lineColor = priceChange >= 0 ? '#22c55e' : '#ef4444';
-
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      return (
-        <div className="bg-[#1e1e2e] p-2 rounded-lg border border-[#2d2d3d] shadow-lg">
-          <p className="font-medium text-white">{formatUSD(data.price)}</p>
-          <p className="text-xs text-gray-400">
-            {new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </p>
-        </div>
-      );
+  useEffect(() => {
+    async function loadPrices() {
+      const rawData = await fetchChartPrices(tokenId, range);
+      const formatted = rawData.map(([time, price]) => ({ time, price }));
+      setChartData(formatted);
     }
-    return null;
-  };
+
+    loadPrices();
+  }, [range, tokenId]);
 
   return (
-    <div className="h-48 w-full mt-2 mb-4">
-      <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-          <XAxis 
-            dataKey="timestamp" 
-            tick={false}
-            axisLine={false}
-            tickLine={false}
-          />
-          <YAxis 
-            domain={[minPrice, maxPrice]} 
-            tick={false} 
-            axisLine={false} 
-            tickLine={false}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Line 
-            type="monotone" 
-            dataKey="price" 
-            stroke={lineColor} 
-            strokeWidth={2}
+    <div>
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={chartData}>
+          <Line
+            type="monotone"
+            dataKey="price"
+            stroke="#16c784"
             dot={false}
-            activeDot={{ r: 4, stroke: lineColor, strokeWidth: 2, fill: '#1e1e2e' }}
+            strokeWidth={2}
           />
         </LineChart>
       </ResponsiveContainer>
+
+      <div className="flex justify-center mt-3 gap-2">
+        {RANGE_OPTIONS.map((opt) => (
+          <button
+            key={opt.value}
+            onClick={() => setRange(opt.value)}
+            className={`px-3 py-1 rounded-full text-sm ${
+              range === opt.value
+                ? "bg-[#2e2e3e] text-white"
+                : "bg-[#1e1e2e] text-gray-400"
+            }`}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

@@ -9,6 +9,10 @@ interface TokenCardProps {
 }
 
 const TokenCard = ({ token, index }: TokenCardProps) => {
+  // Usa o iconUrl se já tiver, senão tenta carregar da Solana Token List
+  const iconUrl = token.iconUrl || 
+    `https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/${token.mintAddress}/logo.png`;
+
   return (
     <Link to={`/token/${token.id}`}>
       <CardContainer 
@@ -21,11 +25,11 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
         <div className="flex items-center">
           <div className="w-10 h-10 rounded-full bg-zinc-200 dark:bg-zinc-700 p-1 mr-3 flex-shrink-0 overflow-hidden">
             <img 
-              src={token.iconUrl} 
+              src={iconUrl} 
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
+                (e.target as HTMLImageElement).src = '/icons/default-token.png';
               }}
             />
           </div>

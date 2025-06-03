@@ -27,7 +27,7 @@ const mockTokens: Token[] = [
     usdValue: 345.57,
     priceUsd: 110.0,
     priceHistory: [102, 104, 99, 105, 110, 108, 112, 110, 114, 116, 110],
-    mintAddress: '7nHtVnJ7F6ePgYUFgRtEzM9DAE12hRsAXTWymb4epFkv'
+    mintAddress: 'So11111111111111111111111111111111111111112'
   },
   {
     id: '2',
@@ -49,7 +49,7 @@ const mockTokens: Token[] = [
     usdValue: 24.52,
     priceUsd: 0.16,
     priceHistory: [0.15, 0.14, 0.16, 0.17, 0.16, 0.17, 0.18, 0.17, 0.16, 0.16, 0.16],
-    mintAddress: 'SRMuA7vZHv3KzazctX89YTz8RBYn4fN7w9Pfef1bXQ3'
+    mintAddress: 'SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt'
   },
   {
     id: '4',
@@ -60,7 +60,7 @@ const mockTokens: Token[] = [
     usdValue: 17.0,
     priceUsd: 0.4,
     priceHistory: [0.38, 0.39, 0.41, 0.4, 0.42, 0.41, 0.4, 0.39, 0.4, 0.4, 0.4],
-    mintAddress: '4k3Dyjzvzp8eGc5uxZ9qLGbyv8mfs83LB7TFFB5jvuGH'
+    mintAddress: '2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv'
   }
 ];
 

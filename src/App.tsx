@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import WalletPage from '@/pages/WalletPage';
 import TokenDetailPage from '@/pages/TokenDetailPage';
 import SendPage from '@/pages/SendPage';
@@ -15,13 +15,16 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Redirecionamento da raiz para /wallet */}
+        <Route path="/" element={<Navigate to="/wallet" replace />} />
+
         {/* Rotas públicas */}
         <Route path="/create-wallet" element={<CreateWalletPage />} />
         <Route path="/import-wallet" element={<ImportWalletPage />} />
 
         {/* Rotas protegidas */}
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<WalletPage />} />
+          <Route path="/wallet" element={<WalletPage />} />
           <Route path="/token/:tokenId" element={<TokenDetailPage />} />
           <Route path="/send" element={<SendPage />} />
           <Route path="/receive" element={<ReceivePage />} />
@@ -37,3 +40,4 @@ function App() {
 }
 
 export default App;
+

@@ -22,8 +22,8 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                // Fallback if image fails to load
-                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/40?text=' + token.symbol;
+                // Oculta a imagem quebrada se falhar
+                (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           </div>

@@ -10,7 +10,6 @@ interface TokenDetailProps {
 }
 
 const TokenDetail = ({ token }: TokenDetailProps) => {
-  // Calculate price change
   const firstPrice = token.priceHistory[0];
   const lastPrice = token.priceHistory[token.priceHistory.length - 1];
   const priceChange = ((lastPrice - firstPrice) / firstPrice) * 100;
@@ -26,7 +25,7 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
               alt={token.name}
               className="w-full h-full object-contain"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://via.placeholder.com/48?text=' + token.symbol;
+                (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           </div>

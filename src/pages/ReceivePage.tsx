@@ -50,7 +50,7 @@ const ReceivePage = () => {
                         alt={token.name}
                         className="w-5 h-5 mr-2"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = 'https://via.placeholder.com/20?text=' + token.symbol;
+                          (e.target as HTMLImageElement).style.display = 'none';
                         }}
                       />
                       <span>{token.symbol}</span>

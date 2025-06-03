@@ -217,6 +217,15 @@ export const useWalletStore = create<WalletState>()(
       }),
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated?.();
+
+        // 🔥 Limpa preços mockados ao restaurar do localStorage
+        if (state.currentWallet) {
+          state.currentWallet.tokens = state.currentWallet.tokens.map(token => ({
+            ...token,
+            priceUsd: 0,
+            usdValue: 0,
+          }));
+        }
       }
     }
   )

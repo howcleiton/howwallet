@@ -26,14 +26,19 @@ const pageVariants = {
 const MobileLayout = ({ children, className }: MobileLayoutProps) => {
   const location = useLocation();
 
-  // Define em quais rotas o menu inferior deve aparecer
-  const showBottomNav = [
+  // Lista de rotas onde o BottomNav deve aparecer
+  const showBottomNavRoutes = [
     '/wallet',
     '/dashboard',
     '/discover',
     '/activity',
     '/settings',
-  ].includes(location.pathname);
+  ];
+
+  // Verifica se a rota atual começa com algum dos caminhos acima
+  const showBottomNav = showBottomNavRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
 
   return (
     <div className="flex justify-center bg-background text-foreground transition-colors duration-300 min-h-screen">
@@ -48,7 +53,7 @@ const MobileLayout = ({ children, className }: MobileLayoutProps) => {
           {children}
         </motion.main>
 
-        {/* Renderiza o menu inferior só nas rotas definidas */}
+        {/* Renderiza o menu inferior apenas nas rotas válidas */}
         {showBottomNav && <BottomNav />}
       </div>
     </div>

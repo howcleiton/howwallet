@@ -6,14 +6,12 @@ import SectionHeader from '@/components/ui/section-header';
 import SettingsCard from '@/components/settings/SettingsCard';
 import { 
   Network, 
-  Globe, 
   Key, 
   Import, 
   Plus, 
   Moon, 
   Sun,
   AlertTriangle,
-  ChevronRight
 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
@@ -25,7 +23,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogFooter
 } from '@/components/ui/dialog';
 import { 
   AlertDialog,
@@ -43,8 +40,6 @@ import { formatAddress } from '@/lib/utils';
 const SettingsPage = () => {
   const { currentWallet, changeNetwork } = useWalletStore();
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showPrivateKey, setShowPrivateKey] = useState(false);
-  const [showSeedPhrase, setShowSeedPhrase] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -235,5 +230,3 @@ const SettingsPage = () => {
     </MobileLayout>
   );
 };
-
-export default SettingsPage;

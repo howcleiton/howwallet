@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Token } from '@/types';
 import { formatAmount, formatUSD } from '@/lib/utils';
-import { motion } from 'framer-motion';
 import CardContainer from '@/components/ui/card-container';
 
 interface TokenCardProps {
@@ -43,5 +42,3 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
     </Link>
   );
 };
-
-export default TokenCard;

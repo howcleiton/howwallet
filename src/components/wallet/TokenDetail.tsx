@@ -3,7 +3,6 @@ import { formatAmount, formatUSD } from '@/lib/utils';
 import PriceChart from './PriceChart';
 import CardContainer from '@/components/ui/card-container';
 import { ArrowUp, ArrowDown } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 interface TokenDetailProps {
@@ -89,5 +88,3 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
     </div>
   );
 };
-
-export default TokenDetail;

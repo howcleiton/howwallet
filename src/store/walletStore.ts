@@ -7,6 +7,8 @@ interface WalletState {
   currentWallet: Wallet | null;
   transactions: Transaction[];
   isWalletLoading: boolean;
+  hasHydrated: boolean;
+  setHasHydrated: () => void;
   createWallet: (name: string) => Promise<Wallet>;
   importWallet: (seedPhrase: string[], name: string) => Promise<Wallet>;
   selectWallet: (walletId: string) => void;
@@ -122,6 +124,8 @@ export const useWalletStore = create<WalletState>()(
       currentWallet: null,
       transactions: mockTransactions,
       isWalletLoading: false,
+      hasHydrated: false,
+      setHasHydrated: () => set({ hasHydrated: true }),
 
       createWallet: async (name) => {
         set({ isWalletLoading: true });
@@ -204,7 +208,10 @@ export const useWalletStore = create<WalletState>()(
       partialize: (state) => ({
         currentWallet: state.currentWallet,
         transactions: state.transactions
-      })
+      }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated?.();
+      }
     }
   )
 );

@@ -230,3 +230,5 @@ const SettingsPage = () => {
     </MobileLayout>
   );
 };
+
+export default SettingsPage;

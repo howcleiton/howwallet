@@ -42,3 +42,5 @@ const TokenCard = ({ token, index }: TokenCardProps) => {
     </Link>
   );
 };
+
+export default TokenCard;

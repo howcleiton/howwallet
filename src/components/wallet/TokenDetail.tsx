@@ -88,3 +88,5 @@ const TokenDetail = ({ token }: TokenDetailProps) => {
     </div>
   );
 };
+
+export default TokenDetail;

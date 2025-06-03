@@ -163,3 +163,5 @@ const CreateWalletPage = () => {
     </MobileLayout>
   );
 };
+
+export default CreateWalletPage;

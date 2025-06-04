@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { LineChart, Line, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { format } from "date-fns";
 
 const RANGE_OPTIONS = [
-  { label: "1H", value: "1m" },   // 1 minuto = último 1h
-  { label: "1D", value: "1h" },   // 1 hora = último 1d
-  { label: "1S", value: "4h" },   // aproxima 1 semana
-  { label: "1M", value: "1d" },   // 1 dia = último 1m
-  { label: "1A", value: "7d" },   // 7 dias agrupados = aproxima 1 ano
+  { label: "1H", value: "1m" },   // últimos minutos
+  { label: "1D", value: "1h" },   // últimas horas
+  { label: "1S", value: "4h" },   // últimos dias
+  { label: "1M", value: "1d" },   // últimos 30 dias
+  { label: "1A", value: "7d" },   // últimos 365 dias agrupados
 ];
 
 interface PriceChartProps {
-  tokenId: string; // será o mintAddress agora
+  tokenId: string; // mintAddress
 }
 
 const PriceChart = ({ tokenId }: PriceChartProps) => {
@@ -22,7 +23,7 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
       try {
         const response = await fetch(`https://public-api.birdeye.so/public/price_history?address=${tokenId}&interval=${range}`, {
           headers: {
-            "X-API-KEY": "CleitonG2228",
+            "X-API-KEY": "1902a09019154db18195515fc07bc4f8",
             "accept": "application/json",
           },
         });
@@ -30,10 +31,13 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
         const data = await response.json();
 
         if (data?.data?.items && Array.isArray(data.data.items)) {
-          const formatted = data.data.items.map((item: any) => ({
-            time: item.timestamp,
-            price: item.value,
-          }));
+          const formatted = data.data.items
+            .map((item: any) => ({
+              time: item.timestamp * 1000, // converte para ms
+              price: item.value,
+            }))
+            .sort((a, b) => a.time - b.time); // garante que estão em ordem crescente
+
           setChartData(formatted);
         } else {
           console.warn("⚠️ Dados de gráfico inválidos:", data);
@@ -50,17 +54,34 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
 
   return (
     <div>
-      <ResponsiveContainer width="100%" height={160}>
-        <LineChart data={chartData}>
-          <Line
-            type="monotone"
-            dataKey="price"
-            stroke="#16c784"
-            dot={false}
-            strokeWidth={2}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      {chartData.length > 0 ? (
+        <ResponsiveContainer width="100%" height={160}>
+          <LineChart data={chartData}>
+            <XAxis
+              dataKey="time"
+              hide
+              tickFormatter={(time) => format(new Date(time), "HH:mm")}
+            />
+            <Tooltip
+              formatter={(value: number) => `$${value.toFixed(2)}`}
+              labelFormatter={(label: number) =>
+                format(new Date(label), "MMM d, HH:mm")
+              }
+            />
+            <Line
+              type="monotone"
+              dataKey="price"
+              stroke="#16c784"
+              dot={false}
+              strokeWidth={2}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      ) : (
+        <div className="text-center text-sm text-zinc-400 py-6">
+          Nenhum dado disponível para este período.
+        </div>
+      )}
 
       {/* Botões de período */}
       <div className="flex justify-center mt-3 gap-2">

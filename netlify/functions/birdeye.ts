@@ -13,7 +13,7 @@ export const handler: Handler = async (event) => {
   try {
     const response = await fetch(`https://public-api.birdeye.so/defi/price?address=${address}`, {
       headers: {
-        'X-API-KEY': 'CleitonG2228', // ✅ substitua pela sua nova chave sem "@"
+        'X-API-KEY': '1902a09019154db18195515fc07bc4f8', // ✅ substitua pela sua nova chave sem "@"
         'accept': 'application/json',
         'x-chain': 'solana',
       },

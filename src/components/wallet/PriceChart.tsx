@@ -36,7 +36,7 @@ const PriceChart = ({ tokenId }: PriceChartProps) => {
               time: item.timestamp * 1000, // converte para ms
               price: item.value,
             }))
-            .sort((a, b) => a.time - b.time); // garante que estão em ordem crescente
+            .sort((a: { time: number }, b: { time: number }) => a.time - b.time); // garante que estão em ordem crescente
 
           setChartData(formatted);
         } else {

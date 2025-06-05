@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import WalletPage from '@/pages/WalletPage';
 import TokenDetailPage from '@/pages/TokenDetailPage';
 import SendPage from '@/pages/SendPage';
@@ -8,6 +8,7 @@ import DiscoverPage from '@/pages/DiscoverPage';
 import SettingsPage from '@/pages/SettingsPage';
 import CreateWalletPage from '@/pages/CreateWalletPage';
 import ImportWalletPage from '@/pages/ImportWalletPage';
+import WelcomePage from '@/pages/WelcomePage'; // ✅ novo
 import { Toaster } from '@/components/ui/sonner';
 import PrivateRoute from '@/routes/PrivateRoute';
 import { useEffect } from 'react';
@@ -30,8 +31,8 @@ function App() {
       <ThemeEffect />
 
       <Routes>
-        {/* Redirecionamento da raiz para /wallet */}
-        <Route path="/" element={<Navigate to="/wallet" replace />} />
+        {/* ✅ Agora a rota raiz abre a tela de boas-vindas */}
+        <Route path="/" element={<WelcomePage />} />
 
         {/* Rotas públicas */}
         <Route path="/create-wallet" element={<CreateWalletPage />} />

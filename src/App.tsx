@@ -8,7 +8,11 @@ import DiscoverPage from '@/pages/DiscoverPage';
 import SettingsPage from '@/pages/SettingsPage';
 import CreateWalletPage from '@/pages/CreateWalletPage';
 import ImportWalletPage from '@/pages/ImportWalletPage';
-import WelcomePage from '@/pages/WelcomePage'; // ✅ novo
+import WelcomePage from '@/pages/WelcomePage';
+import CreateOptionPage from '@/pages/CreateOptionPage'; // ✅ Import correto da tela de escolha
+import CreateEmailPage from '@/pages/CreateEmailPage';
+import CreatePinPage from '@/pages/CreatePinPage';
+import ConfirmPinPage from '@/pages/ConfirmPinPage';
 import { Toaster } from '@/components/ui/sonner';
 import PrivateRoute from '@/routes/PrivateRoute';
 import { useEffect } from 'react';
@@ -31,14 +35,18 @@ function App() {
       <ThemeEffect />
 
       <Routes>
-        {/* ✅ Agora a rota raiz abre a tela de boas-vindas */}
+        {/* ✅ Tela de boas-vindas na raiz */}
         <Route path="/" element={<WelcomePage />} />
 
-        {/* Rotas públicas */}
+        {/* ✅ Telas públicas */}
+        <Route path="/create-option" element={<CreateOptionPage />} />
+        <Route path="/create-email" element={<CreateEmailPage />} />
+        <Route path="/create-pin" element={<CreatePinPage />} />
+        <Route path="/confirm-pin" element={<ConfirmPinPage />} />
         <Route path="/create-wallet" element={<CreateWalletPage />} />
         <Route path="/import-wallet" element={<ImportWalletPage />} />
 
-        {/* Rotas protegidas */}
+        {/* ✅ Telas protegidas */}
         <Route element={<PrivateRoute />}>
           <Route path="/wallet" element={<WalletPage />} />
           <Route path="/token/:tokenId" element={<TokenDetailPage />} />

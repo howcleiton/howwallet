@@ -79,12 +79,13 @@ const WelcomePage = () => {
 
         {/* Botão primário */}
         <Button
-          disabled={!acceptedTerms}
-          className="w-full mb-3 bg-violet-600 hover:bg-violet-700 text-white"
-          onClick={() => navigate('/create-wallet')}
-        >
-          Criar uma nova carteira
-        </Button>
+  disabled={!acceptedTerms}
+  className="w-full mb-3 bg-violet-600 hover:bg-violet-700 text-white"
+  onClick={() => navigate('/create-option')} // ✅ novo destino
+>
+  Criar uma nova carteira
+</Button>
+
 
         {/* Botão secundário com clique condicional (mantendo estilo) */}
         <Button

@@ -14,7 +14,6 @@ const WelcomePage = () => {
 
   const isDark = theme === 'dark';
 
-  // Redirecionar automaticamente se já existir carteira
   useEffect(() => {
     if (currentWallet) {
       navigate('/wallet');
@@ -27,7 +26,7 @@ const WelcomePage = () => {
         isDark ? 'bg-black text-white' : 'bg-white text-black'
       }`}
     >
-      {/* Ícones decorativos de fundo (mock) */}
+      {/* Ícones decorativos de fundo */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-10 select-none">
         <div className="absolute top-8 left-8 w-12 h-12 bg-purple-500 rounded-full blur-xl" />
         <div className="absolute top-16 right-12 w-10 h-10 bg-violet-400 rounded-full blur-lg" />
@@ -35,19 +34,23 @@ const WelcomePage = () => {
         <div className="absolute bottom-8 right-8 w-12 h-12 bg-green-500 rounded-full blur-lg" />
       </div>
 
-      {/* Conteúdo principal */}
       <motion.div
-        className="z-10 w-full max-w-sm text-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h1 className="text-2xl font-bold mb-3">Boas-vindas à How Wallet</h1>
-        <p className="text-sm text-zinc-500 mb-6">
-          Para começar, crie uma nova carteira ou importe uma carteira existente.
-        </p>
+  className="z-10 w-full max-w-sm text-center"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
+  {/* ✅ Logo maior */}
+  <img
+    src="/icons/logo_howwallet.png"
+    alt="How Wallet Logo"
+    className="w-28 h-28 mx-auto mb-4"
+  />
 
-        {/* Bolinhas de progresso */}
+  <h1 className="text-2xl font-bold mb-3">Boas-vindas à How Wallet</h1>
+  <p className="text-sm text-zinc-500 mb-6">
+    Para começar, crie uma nova carteira ou importe uma carteira existente.
+  </p>
         <div className="flex justify-center gap-1 mb-6">
           {[...Array(5)].map((_, i) => (
             <span
@@ -59,7 +62,6 @@ const WelcomePage = () => {
           ))}
         </div>
 
-        {/* Checkbox com termos */}
         <div className="flex items-center justify-center gap-2 mb-6">
           <Checkbox
             id="terms"
@@ -77,17 +79,14 @@ const WelcomePage = () => {
           </label>
         </div>
 
-        {/* Botão primário */}
         <Button
-  disabled={!acceptedTerms}
-  className="w-full mb-3 bg-violet-600 hover:bg-violet-700 text-white"
-  onClick={() => navigate('/create-option')} // ✅ novo destino
->
-  Criar uma nova carteira
-</Button>
+          disabled={!acceptedTerms}
+          className="w-full mb-3 bg-violet-600 hover:bg-violet-700 text-white"
+          onClick={() => navigate('/create-option')}
+        >
+          Criar uma nova carteira
+        </Button>
 
-
-        {/* Botão secundário com clique condicional (mantendo estilo) */}
         <Button
           variant="ghost"
           onClick={() => {

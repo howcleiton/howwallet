@@ -16,10 +16,11 @@ const CreateOptionPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
+        {/* ✅ Logo atualizada e maior */}
         <img
-          src="/logo.svg"
-          alt="Logo"
-          className="w-20 h-20 mx-auto mb-6 opacity-80"
+          src="/icons/logo_howwallet.png"
+          alt="How Wallet Logo"
+          className="w-28 h-28 mx-auto mb-6 opacity-90"
         />
 
         <h1 className="text-xl font-bold mb-2">Adicionar uma carteira</h1>
